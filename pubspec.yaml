@@ -34,14 +34,14 @@ dependencies:
   auto_route: ^0.4.5
 
   # Get It
-  get: ^2.1.2
+  get: ^2.5.0
   get_it: ^4.0.2
   injectable: ^0.3.0
 
 
   # State management
   stacked: ^1.5.0
-  stacked_services: ^0.2.3
+  stacked_services: ^0.2.4
 
   # UI packages
   google_fonts: ^1.1.0

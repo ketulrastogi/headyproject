@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:headyproject/ui/view/categorylist/categorylist_viewmodel.dart';
+import 'package:headyproject/ui/view/productlist/productlist_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
-class CategoryListView extends StatelessWidget {
+class ProductListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<CategoryListViewModel>.nonReactive(
+    return ViewModelBuilder<ProductListViewModel>.nonReactive(
       builder: (context, model, child) {
         return SafeArea(
           child: Scaffold(
             appBar: AppBar(
-              title: Text('CategoryList'),
+              title: Text('SubCategoryList'),
             ),
             body: Center(
-              child: Text('Category List View'),
+              child: Text('Sub Category List View'),
             ),
           ),
         );
       },
-      viewModelBuilder: () => CategoryListViewModel(),
+      viewModelBuilder: () => ProductListViewModel(),
     );
   }
 }
