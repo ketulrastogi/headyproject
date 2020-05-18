@@ -8,5 +8,5 @@ class HomeViewModel extends BaseViewModel {
   String _title = "Home Page";
   String get title => _title;
 
-  List<Category> get categories => _apiService.categories;
+  List<CategoryModel> get categories => _apiService.categories;
 }

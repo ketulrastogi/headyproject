@@ -1,12 +1,13 @@
-class Rankings {
+class RankingsModel {
   final List<ProductViewed> productsViewed;
   final List<ProductShared> productsShared;
   final List<ProductOrdered> productsOrdered;
 
-  Rankings({this.productsViewed, this.productsShared, this.productsOrdered});
+  RankingsModel(
+      {this.productsViewed, this.productsShared, this.productsOrdered});
 
-  factory Rankings.fromMap(Map<String, dynamic> data) {
-    return Rankings(
+  factory RankingsModel.fromMap(Map<String, dynamic> data) {
+    return RankingsModel(
       productsViewed: (data[0] as List).map((productViewed) => null).toList(),
     );
   }

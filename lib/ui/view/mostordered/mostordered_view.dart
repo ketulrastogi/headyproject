@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:headyproject/ui/view/mostordered/mostordered_viewmodel.dart';
+import 'package:headyproject/ui/view/product/product_view.dart';
 import 'package:stacked/stacked.dart';
 
 class MostOrderedView extends StatelessWidget {
@@ -9,6 +10,7 @@ class MostOrderedView extends StatelessWidget {
     return ViewModelBuilder<MostOrderedViewModel>.reactive(
       builder: (context, model, child) {
         return Container(
+          padding: EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
               Container(
@@ -67,25 +69,8 @@ class MostOrderedView extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 8,
                   itemBuilder: (context, index) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      padding: EdgeInsets.all(8.0),
-                      margin: EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.0),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade100,
-                            blurRadius: 4.0,
-                            spreadRadius: 4.0,
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text('Product'),
-                      ),
-                    );
+                    return ProductView(
+                        product: model.mostOrderedProducts[index]);
                   },
                 ),
               ),

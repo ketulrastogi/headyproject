@@ -9,10 +9,12 @@ class CategoryListWidgetView extends StatelessWidget {
     return ViewModelBuilder<CategoryListWidgetViewModel>.nonReactive(
       builder: (context, model, child) {
         return Container(
+          // padding: EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                // padding: EdgeInsets.symmetric(horizontal : 32.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -61,7 +63,11 @@ class CategoryListWidgetView extends StatelessWidget {
                       return Container();
                     }
                     return Container(
-                      padding: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.only(
+                          left: (index < 0) ? 0.0 : 16.0,
+                          right: 8.0,
+                          top: 8.0,
+                          bottom: 8.0),
                       margin: EdgeInsets.all(4.0),
                       child: Column(
                         children: <Widget>[

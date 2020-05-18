@@ -1,82 +1,82 @@
-class Product {
+class ProductModel {
   int id;
   String name;
   DateTime dateAdded;
-  List<Varient> varients;
-  Tax tax;
+  int categoryId;
   List<int> childCategories;
-  // int orderCount;
-  // int viewCount;
-  // int sharedCount;
+  int orderCount;
+  int viewCount;
+  int sharedCount;
+  String taxName;
+  double taxValue;
 
-  Product({
+  ProductModel({
     this.id,
     this.name,
     this.dateAdded,
-    this.varients,
-    this.tax,
+    this.categoryId,
     this.childCategories,
-    // this.orderCount,
-    // this.sharedCount,
-    // this.viewCount,
+    this.orderCount,
+    this.sharedCount,
+    this.viewCount,
+    this.taxName,
+    this.taxValue,
   });
 
-  // setOrderCount(int orderCount) {
-  //   this.orderCount = orderCount;
-  // }
+  setCategoryId(int categoryId) {
+    this.categoryId = categoryId;
+  }
 
-  // setViewCount(int viewCount) {
-  //   this.viewCount = viewCount;
-  // }
+  setOrderCount(int orderCount) {
+    this.orderCount = orderCount;
+  }
 
-  // setShareCount(int sharedCount) {
-  //   this.sharedCount = sharedCount;
-  // }
+  setViewCount(int viewCount) {
+    this.viewCount = viewCount;
+  }
 
-  factory Product.fromMap(Map<String, dynamic> data) {
-    return Product(
+  setShareCount(int sharedCount) {
+    this.sharedCount = sharedCount;
+  }
+
+  setTaxName(String name) {
+    this.taxName = name;
+  }
+
+  setTaxValue(double value) {
+    this.taxValue = value;
+  }
+
+  setChildCategories(List<int> data) {
+    this.childCategories = data;
+  }
+
+  factory ProductModel.fromMap(Map<String, dynamic> data) {
+    return ProductModel(
       id: data['id'],
       name: data['name'],
       dateAdded: DateTime.parse(data['date_added']),
-      varients: (data.containsKey('varients') && data['verients'] != null)
-          ? (data['varients'] as List)
-              .map((varient) => Varient.fromMap(varient))
-              .toList()
-          : [],
-      tax: Tax.fromMap(data['tax']),
+      categoryId:
+          (data.containsKey('category_id') && data['category_id'] != null)
+              ? data['category_id']
+              : null,
       childCategories: data['child_categories'],
-    );
-  }
-}
-
-class Varient {
-  int id;
-  String color;
-  int size;
-  int price;
-
-  Varient({this.id, this.color, this.size, this.price});
-
-  factory Varient.fromMap(Map<String, dynamic> data) {
-    return Varient(
-      id: data['id'],
-      color: data['color'],
-      size: data['size'],
-      price: data['price'],
-    );
-  }
-}
-
-class Tax {
-  String name;
-  double value;
-
-  Tax({this.name, this.value});
-
-  factory Tax.fromMap(Map<String, dynamic> data) {
-    return Tax(
-      name: data['name'],
-      value: double.parse(data['value'].toString()),
+      orderCount:
+          (data.containsKey('order_count') && data['order_count'] != null)
+              ? data['order_count']
+              : null,
+      viewCount: (data.containsKey('view_count') && data['view_count'] != null)
+          ? data['view_count']
+          : null,
+      sharedCount: (data.containsKey('shares') && data['shares'] != null)
+          ? data['shares']
+          : null,
+      taxName: (data.containsKey('tax_name') && data['tax_name'] != null)
+          ? data['tax_name']
+          : null,
+      taxValue: (data.containsKey('tax_value') && data['tax_value'] != null)
+          ? data['tax_value']
+          : null,
     );
   }
 }

@@ -10,6 +10,7 @@ class MostSharedView extends StatelessWidget {
     return ViewModelBuilder<MostSharedViewModel>.reactive(
       builder: (context, model, child) {
         return Container(
+          padding: EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
               Container(
@@ -19,7 +20,7 @@ class MostSharedView extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        'MOST ORDERED',
+                        'MOST SHARED',
                         style: GoogleFonts.nunito(
                           textStyle:
                               Theme.of(context).textTheme.subtitle1.copyWith(
@@ -84,7 +85,7 @@ class MostSharedView extends StatelessWidget {
                         ],
                       ),
                       child: Center(
-                        child: Text('Product'),
+                        child: Text(model.mostSharedProducts[index].name),
                       ),
                     );
                   },

@@ -11,9 +11,9 @@ class SplashViewModel extends BaseViewModel {
 
   fetchData() async {
     await _apiService.fetchData();
-    notifyListeners();
+    // notifyListeners();
     print('Data Loaded Using Splash Screen');
-    await _navigationService.navigateTo(Routes.homeView);
+    _navigationService.navigateTo(Routes.homeView);
 
     // print('Total Categories : ${_apiService.categories.length}');
   }

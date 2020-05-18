@@ -18,21 +18,30 @@ class HomeView extends StatelessWidget {
       builder: (context, model, child) {
         return SafeArea(
           child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                'Heady Shop',
+                style: GoogleFonts.nunito(
+                  textStyle: Theme.of(context).textTheme.headline5.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
+              shape: Border(
+                bottom: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              centerTitle: true,
+              automaticallyImplyLeading: false,
+            ),
             // backgroundColor: Colors.white,
             body: ListView(
+              // padding: EdgeInsets.all(16.0),
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    'Heady Project',
-                    style: GoogleFonts.nunito(
-                      textStyle: Theme.of(context).textTheme.headline4.copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  ),
-                ),
                 CategoryListWidgetView(),
                 Divider(
                   indent: 16.0,

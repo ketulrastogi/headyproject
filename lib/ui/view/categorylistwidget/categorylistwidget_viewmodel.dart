@@ -8,7 +8,7 @@ import 'package:stacked_services/stacked_services.dart';
 class CategoryListWidgetViewModel extends BaseViewModel {
   final ApiService _apiService = locator<ApiService>();
   final NavigationService _navigationService = locator<NavigationService>();
-  List<Category> get categories => _apiService.categories;
+  List<CategoryModel> get categories => _apiService.categories;
 
   navigateToAllCategoryPage() {
     _navigationService.navigateTo(Routes.categoryListView);

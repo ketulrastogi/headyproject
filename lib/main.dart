@@ -14,11 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Heady Project',
+      title: 'Heady Shop',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      debugShowCheckedModeBanner: false,
       navigatorKey: locator<NavigationService>().navigatorKey,
       initialRoute: Routes.splashView,
       onGenerateRoute: Router().onGenerateRoute,

@@ -8,7 +8,6 @@ class SplashView extends StatelessWidget {
     return ViewModelBuilder<SplashViewModel>.nonReactive(
       onModelReady: (model) => model.fetchData(),
       builder: (context, model, child) {
-        model.fetchData();
         return SafeArea(
           child: Scaffold(
             body: Center(
