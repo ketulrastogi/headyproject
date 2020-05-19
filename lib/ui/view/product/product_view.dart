@@ -11,6 +11,7 @@ class ProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProductViewModel>.reactive(
+      onModelReady: (model) => model.setProduct(product),
       builder: (context, model, child) {
         return Container(
           width: MediaQuery.of(context).size.width / 3,
@@ -29,26 +30,52 @@ class ProductView extends StatelessWidget {
             ],
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
                       alignment: Alignment.center,
                       child: Icon(
                         Icons.card_giftcard,
-                        size: 80.0,
+                        size: 64.0,
                       ),
                     ),
-                    Container(
-                      color: Colors.cyanAccent,
+                    InkWell(
+                      onTap: () {
+                        model.setVarient();
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(24.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade100,
+                                blurRadius: 4.0,
+                                spreadRadius: 4.0,
+                              ),
+                            ]),
+                        child: Icon(
+                          Icons.style,
+                          size: 24.0,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
+              SizedBox(
+                height: 8.0,
+              ),
               Container(
-                alignment: Alignment.centerLeft,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       product.name,
@@ -61,7 +88,90 @@ class ProductView extends StatelessWidget {
                                 ),
                       ),
                     ),
-                    Text(product.categoryId.toString()),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            'Price: ',
+                            style: GoogleFonts.nunito(
+                              textStyle:
+                                  Theme.of(context).textTheme.caption.copyWith(
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                            ),
+                          ),
+                          Text(
+                            model.varient.price.toString(),
+                            style: GoogleFonts.nunito(
+                              textStyle:
+                                  Theme.of(context).textTheme.caption.copyWith(
+                                        color: Colors.black87,
+                                        // fontWeight: FontWeight.bold,
+                                      ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    (model.varient.size != null)
+                        ? Container(
+                            child: Row(
+                              children: <Widget>[
+                                Text(
+                                  'Size: ',
+                                  style: GoogleFonts.nunito(
+                                    textStyle: Theme.of(context)
+                                        .textTheme
+                                        .caption
+                                        .copyWith(
+                                          color: Colors.black87,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ),
+                                Text(
+                                  model.varient.size.toString(),
+                                  style: GoogleFonts.nunito(
+                                    textStyle: Theme.of(context)
+                                        .textTheme
+                                        .caption
+                                        .copyWith(
+                                          color: Colors.black87,
+                                          // fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            'Color: ',
+                            style: GoogleFonts.nunito(
+                              textStyle:
+                                  Theme.of(context).textTheme.caption.copyWith(
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                            ),
+                          ),
+                          Text(
+                            'Golden',
+                            style: GoogleFonts.nunito(
+                              textStyle:
+                                  Theme.of(context).textTheme.caption.copyWith(
+                                        color: Colors.black87,
+                                        // fontWeight: FontWeight.bold,
+                                      ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

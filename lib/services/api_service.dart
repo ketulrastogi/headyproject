@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:headyproject/models/category_model.dart';
 import 'package:headyproject/models/product_model.dart';
+import 'package:headyproject/models/variant_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:stacked/stacked.dart';
 import 'package:observable_ish/value/value.dart';
@@ -22,11 +23,15 @@ class ApiService with ReactiveServiceMixin {
       RxValue<List<ProductModel>>(initial: []);
   RxValue<List<ProductModel>> _mostSharedProducts =
       RxValue<List<ProductModel>>(initial: []);
+  RxValue<List<VariantModel>> _variants =
+      RxValue<List<VariantModel>>(initial: []);
 
   List<CategoryModel> get categories => _categories.value;
   List<ProductModel> get products => _products.value;
   List<CategoryModel> get newCategories => _newCategories.value;
   List<ProductModel> get newProducts => _newProducts.value;
+
+  List<VariantModel> get variants => _variants.value;
 
   List<ProductModel> get mostOrderedProducts => _mostOrderedProducts.value;
   List<ProductModel> get mostViewedProducts => _mostViewedProducts.value;
@@ -56,6 +61,12 @@ class ApiService with ReactiveServiceMixin {
             double.parse(product['tax']['value'].toString());
         productModel.childCategories = product['child_categories'];
         _newProducts.value.add(productModel);
+
+        product['variants'].forEach((variant) {
+          VariantModel variantModel = VariantModel.fromMap(variant);
+          variantModel.setProductId(product['id']);
+          _variants.value.add(variantModel);
+        });
       });
     });
 

@@ -11,45 +11,19 @@ class CategoryListWidgetView extends StatelessWidget {
         return Container(
           // padding: EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                padding: EdgeInsets.only(left: 24.0, top: 24.0, bottom: 8.0),
                 // padding: EdgeInsets.symmetric(horizontal : 32.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        'CATEGORIES',
-                        style: GoogleFonts.nunito(
-                          textStyle:
-                              Theme.of(context).textTheme.subtitle1.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                child: Text(
+                  'CATEGORIES',
+                  style: GoogleFonts.nunito(
+                    textStyle: Theme.of(context).textTheme.subtitle1.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    ),
-                    Container(
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'View All',
-                            style: GoogleFonts.nunito(
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ),
-                          Icon(Icons.keyboard_arrow_right),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               Container(
@@ -57,7 +31,7 @@ class CategoryListWidgetView extends StatelessWidget {
                 child: ListView.builder(
                   primary: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: 8,
+                  itemCount: model.categories.length,
                   itemBuilder: (context, index) {
                     if (model.categories[index].name.length > 8) {
                       return Container();

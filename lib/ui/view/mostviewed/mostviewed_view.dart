@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:headyproject/ui/view/mostordered/mostordered_viewmodel.dart';
 import 'package:headyproject/ui/view/mostviewed/mostviewed_viewmodel.dart';
+import 'package:headyproject/ui/view/product/product_view.dart';
 import 'package:stacked/stacked.dart';
 
 class MostViewedView extends StatelessWidget {
@@ -12,44 +13,18 @@ class MostViewedView extends StatelessWidget {
         return Container(
           padding: EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        'MOST VIEWED',
-                        style: GoogleFonts.nunito(
-                          textStyle:
-                              Theme.of(context).textTheme.subtitle1.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                padding: EdgeInsets.only(left: 24.0, top: 16.0, bottom: 8.0),
+                child: Text(
+                  'MOST VIEWED',
+                  style: GoogleFonts.nunito(
+                    textStyle: Theme.of(context).textTheme.subtitle1.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    ),
-                    Container(
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'View All',
-                            style: GoogleFonts.nunito(
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ),
-                          Icon(Icons.keyboard_arrow_right),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               Container(
@@ -59,25 +34,8 @@ class MostViewedView extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 8,
                   itemBuilder: (context, index) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      padding: EdgeInsets.all(8.0),
-                      margin: EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.0),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade100,
-                            blurRadius: 4.0,
-                            spreadRadius: 4.0,
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(model.mostViewedProducts[index].name),
-                      ),
-                    );
+                    return ProductView(
+                        product: model.mostViewedProducts[index]);
                   },
                 ),
               ),

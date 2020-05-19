@@ -12,54 +12,18 @@ class MostOrderedView extends StatelessWidget {
         return Container(
           padding: EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        'MOST ORDERED',
-                        style: GoogleFonts.nunito(
-                          textStyle:
-                              Theme.of(context).textTheme.subtitle1.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                padding: EdgeInsets.only(left: 24.0, top: 16.0, bottom: 8.0),
+                child: Text(
+                  'MOST ORDERED',
+                  style: GoogleFonts.nunito(
+                    textStyle: Theme.of(context).textTheme.subtitle1.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    ),
-                    Container(
-                      // child: Text(
-                      //   'View all',
-                      //   style: GoogleFonts.nunito(
-                      //     textStyle:
-                      //         Theme.of(context).textTheme.subtitle1.copyWith(
-                      //               color: Colors.black,
-                      //               fontWeight: FontWeight.bold,
-                      //             ),
-                      //   ),
-                      // ),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'View All',
-                            style: GoogleFonts.nunito(
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ),
-                          Icon(Icons.keyboard_arrow_right),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               Container(
@@ -67,7 +31,7 @@ class MostOrderedView extends StatelessWidget {
                 child: ListView.builder(
                   primary: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: 8,
+                  itemCount: model.mostOrderedProducts.length,
                   itemBuilder: (context, index) {
                     return ProductView(
                         product: model.mostOrderedProducts[index]);
