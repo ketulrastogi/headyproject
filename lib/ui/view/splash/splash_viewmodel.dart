@@ -9,8 +9,8 @@ class SplashViewModel extends BaseViewModel {
   final ApiService _apiService = locator<ApiService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
-  fetchData() async {
-    await _apiService.fetchData();
+  checkLocalData() async {
+    await _apiService.checkLocalData();
     // notifyListeners();
     print('Data Loaded Using Splash Screen');
     _navigationService.navigateTo(Routes.homeView);

@@ -6,7 +6,7 @@ class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SplashViewModel>.nonReactive(
-      onModelReady: (model) => model.fetchData(),
+      onModelReady: (model) => model.checkLocalData(),
       builder: (context, model, child) {
         return SafeArea(
           child: Scaffold(

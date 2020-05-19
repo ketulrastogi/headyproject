@@ -1,15 +1,30 @@
-class ProductModel {
-  int id;
-  String name;
-  DateTime dateAdded;
-  int categoryId;
-  List<int> childCategories;
-  int orderCount;
-  int viewCount;
-  int sharedCount;
-  String taxName;
-  double taxValue;
+import 'package:hive/hive.dart';
 
+part 'product_model.g.dart';
+
+@HiveType(typeId: 1)
+class ProductModel {
+  @HiveField(0)
+  int id;
+  @HiveField(1)
+  String name;
+  @HiveField(2)
+  DateTime dateAdded;
+  @HiveField(3)
+  int categoryId;
+  @HiveField(4)
+  List<int> childCategories;
+  @HiveField(5)
+  int orderCount;
+  @HiveField(6)
+  int viewCount;
+  @HiveField(7)
+  int sharedCount;
+  @HiveField(8)
+  String taxName;
+  @HiveField(9)
+  double taxValue;
+  @HiveField(10)
   ProductModel({
     this.id,
     this.name,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:headyproject/models/product_model.dart';
 import 'package:headyproject/ui/view/mostordered/mostordered_viewmodel.dart';
 import 'package:headyproject/ui/view/mostshared/mostshared_viewmodel.dart';
 import 'package:headyproject/ui/view/product/product_view.dart';
+import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 
 class MostSharedView extends StatelessWidget {
@@ -32,10 +34,11 @@ class MostSharedView extends StatelessWidget {
                 child: ListView.builder(
                   primary: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: model.mostSharedProducts.length,
+                  itemCount: Hive.box('mostShared').length,
                   itemBuilder: (context, index) {
-                    return ProductView(
-                        product: model.mostSharedProducts[index]);
+                    ProductModel product =
+                        Hive.box('mostShared').get(index) as ProductModel;
+                    return ProductView(product: product);
                   },
                 ),
               ),

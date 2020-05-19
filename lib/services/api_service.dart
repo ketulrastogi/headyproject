@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:headyproject/models/category_model.dart';
 import 'package:headyproject/models/product_model.dart';
 import 'package:headyproject/models/variant_model.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:stacked/stacked.dart';
 import 'package:observable_ish/value/value.dart';
@@ -39,7 +40,30 @@ class ApiService with ReactiveServiceMixin {
 
   String _url = 'https://stark-spire-93433.herokuapp.com/json';
 
+  checkLocalData() async {
+    final categoriesBox = await Hive.openBox('categories');
+    final productsBox = await Hive.openBox('products');
+    final variantsBox = await Hive.openBox('variants');
+    final localDataBox = await Hive.openBox('localData');
+    final mostOrderedBox = await Hive.openBox('mostOrdered');
+    final mostViewedBox = await Hive.openBox('mostViewed');
+    final mostSharedBox = await Hive.openBox('mostShared');
+    bool value = localDataBox.get(0) as bool;
+    print('LocalDataBoxValue : $value');
+    if (value == null && !value) {
+      await fetchData();
+    }
+  }
+
   fetchData() async {
+    final categoriesBox = await Hive.openBox('categories');
+    final productsBox = await Hive.openBox('products');
+    final variantsBox = await Hive.openBox('variants');
+    final localDataBox = await Hive.openBox('localData');
+    final mostOrderedBox = await Hive.openBox('mostOrdered');
+    final mostViewedBox = await Hive.openBox('mostViewed');
+    final mostSharedBox = await Hive.openBox('mostShared');
+
     http.Response _response = await _client.get(_url);
 
     Map<String, dynamic> body = json.decode(_response.body);
@@ -62,6 +86,7 @@ class ApiService with ReactiveServiceMixin {
         productModel.childCategories = product['child_categories'];
         _newProducts.value.add(productModel);
 
+        // Save Variants
         product['variants'].forEach((variant) {
           VariantModel variantModel = VariantModel.fromMap(variant);
           variantModel.setProductId(product['id']);
@@ -70,68 +95,56 @@ class ApiService with ReactiveServiceMixin {
       });
     });
 
-    // Update Order, Shared and Viewed Counts
-
+    // Update View Counts in Products
     body['rankings'][0]['products'].forEach((product) {
       ProductModel productModel =
           _newProducts.value.firstWhere((item) => (item.id == product['id']));
-      // productModel.viewCount = product['view_count'];
-
       productModel.setViewCount(product['view_count']);
     });
 
+    // Update Order Counts in Products
     body['rankings'][1]['products'].forEach((product) {
       ProductModel productModel =
           _newProducts.value.firstWhere((item) => (item.id == product['id']));
-      // productModel.viewCount = product['view_count'];
-
       productModel.setOrderCount(product['order_count']);
     });
 
+    // Update Share Counts in Products
     body['rankings'][2]['products'].forEach((product) {
       ProductModel productModel =
           _newProducts.value.firstWhere((item) => (item.id == product['id']));
-      // productModel.viewCount = product['view_count'];
-
       productModel.setShareCount(product['shares']);
     });
 
-    getMostOrderedProducts();
-    getMostViewedProducts();
-    getMostSharedProducts();
-
-    // print(
-    //     'Categories : ${newCategories.length}, Products: ${newProducts.length}');
-  }
-
-  getMostOrderedProducts() {
+    // List Most Ordered Products
     newProducts.forEach((element) {
       if (element.orderCount != null) {
         _mostOrderedProducts.value.add(element);
       }
     });
-    // print('NewProducts: ${newProducts.length}');
-    // print('Total : $i');
-    print('MostOrdered: ${mostOrderedProducts.length}');
-  }
 
-  getMostViewedProducts() {
+    // List Most Viewed Products
     _newProducts.value.forEach((element) {
       if (element.viewCount != null) {
         _mostViewedProducts.value.add(element);
       }
     });
-    print('MostViewed: ${mostViewedProducts.length}');
-  }
 
-  getMostSharedProducts() {
+    // List Most Shared Products
     _newProducts.value.forEach((element) {
       if (element.sharedCount != null) {
         _mostSharedProducts.value.add(element);
       }
     });
-    // print(
-    //     'Sample : ${newProducts.map((e) => (e.orderCount == null)).toList().length}');
-    print('MostShared: ${mostSharedProducts.length}');
+
+    categoriesBox.addAll(_categories.value);
+    productsBox.addAll(_products.value);
+    variantsBox.addAll(_variants.value);
+    print('Products Length: ${_products.value.length}');
+    mostOrderedBox.addAll(_mostOrderedProducts.value);
+    mostViewedBox.addAll(_mostViewedProducts.value);
+    mostSharedBox.addAll(_mostSharedProducts.value);
+
+    localDataBox.add(true);
   }
 }

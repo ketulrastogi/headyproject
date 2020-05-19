@@ -3,24 +3,26 @@ import 'package:headyproject/models/category_model.dart';
 import 'package:headyproject/models/product_model.dart';
 import 'package:headyproject/models/variant_model.dart';
 import 'package:headyproject/services/api_service.dart';
+import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 
 class ProductViewModel extends BaseViewModel {
   final ApiService _apiService = locator<ApiService>();
   ProductModel _productModel;
   VariantModel _variantModel;
+  List<VariantModel> _variants;
 
   ProductModel get product => _productModel;
   VariantModel get variant => _variantModel;
   List<CategoryModel> get categories => _apiService.categories;
-  List<VariantModel> get variants => [
-        ..._apiService.variants
-            .where((element) => (element.productId == product.id))
-      ];
-
+  List<VariantModel> get variants => _variants;
+  int get productsLength => Hive.box('products').length;
   setProduct(ProductModel value) {
     _productModel = value;
-    _variantModel = variants[0];
+    _variantModel = Hive.box('variants').get(0) as VariantModel;
+    // print('ProductId: ${value.id}');
+    getVarients(value.id);
+    // _variantModel = variants[0];
     notifyListeners();
   }
 
@@ -30,7 +32,17 @@ class ProductViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  getVarients(String id) {
-    // return categories.
+  getVarients(int id) {
+    print('ProductId2: ${Hive.box('categories').values.length}');
+
+    for (int i = 0; i < productsLength; i++) {
+      VariantModel variantModel = Hive.box('variants').get(i);
+      print(variantModel.color);
+      if (variantModel.productId == id) {
+        _variants.add(variantModel);
+      }
+      print('$i - ${_variants.length}');
+      notifyListeners();
+    }
   }
 }

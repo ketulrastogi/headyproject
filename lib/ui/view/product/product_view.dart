@@ -64,22 +64,7 @@ class ProductView extends StatelessWidget {
                                               },
                                               value: variant,
                                             ))
-                                        .toList()
-                                    // children: <Widget>[
-                                    //   RadioListTile(
-                                    //     title: Text('Music'),
-                                    //     groupValue: null,
-                                    //     onChanged: (Null value) {},
-                                    //     value: null,
-                                    //   ),
-                                    //   RadioListTile(
-                                    //     title: Text('Music'),
-                                    //     groupValue: null,
-                                    //     onChanged: (Null value) {},
-                                    //     value: null,
-                                    //   ),
-                                    // ],
-                                    ),
+                                        .toList()),
                               );
                             });
                       },
@@ -98,7 +83,7 @@ class ProductView extends StatelessWidget {
                         child: Icon(
                           Icons.style,
                           size: 24.0,
-                          color: Theme.of(context).primaryColor,
+                          color: Colors.black,
                         ),
                       ),
                     ),

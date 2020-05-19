@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:headyproject/models/product_model.dart';
 import 'package:headyproject/ui/view/mostordered/mostordered_viewmodel.dart';
 import 'package:headyproject/ui/view/product/product_view.dart';
+import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 
 class MostOrderedView extends StatelessWidget {
@@ -31,10 +33,11 @@ class MostOrderedView extends StatelessWidget {
                 child: ListView.builder(
                   primary: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: model.mostOrderedProducts.length,
+                  itemCount: Hive.box('mostOrdered').length,
                   itemBuilder: (context, index) {
-                    return ProductView(
-                        product: model.mostOrderedProducts[index]);
+                    ProductModel product =
+                        Hive.box('mostOrdered').get(index) as ProductModel;
+                    return ProductView(product: product);
                   },
                 ),
               ),

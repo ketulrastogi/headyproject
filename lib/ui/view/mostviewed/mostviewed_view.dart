@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:headyproject/models/category_model.dart';
+import 'package:headyproject/models/product_model.dart';
 import 'package:headyproject/ui/view/mostordered/mostordered_viewmodel.dart';
 import 'package:headyproject/ui/view/mostviewed/mostviewed_viewmodel.dart';
 import 'package:headyproject/ui/view/product/product_view.dart';
+import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 
 class MostViewedView extends StatelessWidget {
@@ -32,10 +35,11 @@ class MostViewedView extends StatelessWidget {
                 child: ListView.builder(
                   primary: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: 8,
+                  itemCount: Hive.box('mostViewed').length,
                   itemBuilder: (context, index) {
-                    return ProductView(
-                        product: model.mostViewedProducts[index]);
+                    ProductModel product =
+                        Hive.box('mostViewed').get(index) as ProductModel;
+                    return ProductView(product: product);
                   },
                 ),
               ),

@@ -1,6 +1,14 @@
+import 'package:hive/hive.dart';
+
+part 'category_model.g.dart';
+
+@HiveType(typeId: 0)
 class CategoryModel {
+  @HiveField(0)
   final int id;
+  @HiveField(1)
   final String name;
+  @HiveField(2)
   final List childCategories;
 
   CategoryModel({this.id, this.name, this.childCategories});

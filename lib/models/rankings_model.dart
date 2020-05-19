@@ -1,56 +1,56 @@
-class RankingsModel {
-  final List<ProductViewed> productsViewed;
-  final List<ProductShared> productsShared;
-  final List<ProductOrdered> productsOrdered;
+// class RankingsModel {
+//   final List<ProductViewed> productsViewed;
+//   final List<ProductShared> productsShared;
+//   final List<ProductOrdered> productsOrdered;
 
-  RankingsModel(
-      {this.productsViewed, this.productsShared, this.productsOrdered});
+//   RankingsModel(
+//       {this.productsViewed, this.productsShared, this.productsOrdered});
 
-  factory RankingsModel.fromMap(Map<String, dynamic> data) {
-    return RankingsModel(
-      productsViewed: (data[0] as List).map((productViewed) => null).toList(),
-    );
-  }
-}
+//   factory RankingsModel.fromMap(Map<String, dynamic> data) {
+//     return RankingsModel(
+//       productsViewed: (data[0] as List).map((productViewed) => null).toList(),
+//     );
+//   }
+// }
 
-class ProductViewed {
-  final int id;
-  final int viewCount;
+// class ProductViewed {
+//   final int id;
+//   final int viewCount;
 
-  ProductViewed({this.id, this.viewCount});
+//   ProductViewed({this.id, this.viewCount});
 
-  factory ProductViewed.fromMap(Map<String, dynamic> data) {
-    return ProductViewed(
-      id: data['id'],
-      viewCount: data['view_count'],
-    );
-  }
-}
+//   factory ProductViewed.fromMap(Map<String, dynamic> data) {
+//     return ProductViewed(
+//       id: data['id'],
+//       viewCount: data['view_count'],
+//     );
+//   }
+// }
 
-class ProductShared {
-  final int id;
-  final int shareCount;
+// class ProductShared {
+//   final int id;
+//   final int shareCount;
 
-  ProductShared({this.id, this.shareCount});
+//   ProductShared({this.id, this.shareCount});
 
-  factory ProductShared.fromMap(Map<String, dynamic> data) {
-    return ProductShared(
-      id: data['id'],
-      shareCount: data['shares'],
-    );
-  }
-}
+//   factory ProductShared.fromMap(Map<String, dynamic> data) {
+//     return ProductShared(
+//       id: data['id'],
+//       shareCount: data['shares'],
+//     );
+//   }
+// }
 
-class ProductOrdered {
-  final int id;
-  final int orderCount;
+// class ProductOrdered {
+//   final int id;
+//   final int orderCount;
 
-  ProductOrdered({this.id, this.orderCount});
+//   ProductOrdered({this.id, this.orderCount});
 
-  factory ProductOrdered.fromMap(Map<String, dynamic> data) {
-    return ProductOrdered(
-      id: data['id'],
-      orderCount: data['order_count'],
-    );
-  }
-}
+//   factory ProductOrdered.fromMap(Map<String, dynamic> data) {
+//     return ProductOrdered(
+//       id: data['id'],
+//       orderCount: data['order_count'],
+//     );
+//   }
+// }
