@@ -11,7 +11,7 @@ class ProductViewModel extends BaseViewModel {
   VariantModel _variantModel;
 
   ProductModel get product => _productModel;
-  VariantModel get varient => _variantModel;
+  VariantModel get variant => _variantModel;
   List<CategoryModel> get categories => _apiService.categories;
   List<VariantModel> get variants => [
         ..._apiService.variants
@@ -24,8 +24,10 @@ class ProductViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  setVarient() {
+  setVarient(VariantModel variantModel) {
     print('Varient Color: ${variants[0].color}');
+    _variantModel = variantModel;
+    notifyListeners();
   }
 
   getVarients(String id) {

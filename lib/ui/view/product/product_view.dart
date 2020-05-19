@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:headyproject/models/product_model.dart';
+import 'package:headyproject/models/variant_model.dart';
 import 'package:headyproject/ui/view/product/product_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -46,7 +47,41 @@ class ProductView extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        model.setVarient();
+                        // model.setVarient();
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext bc) {
+                              return Container(
+                                child: Wrap(
+                                    children: model.variants
+                                        .map((variant) => RadioListTile(
+                                              title: Text(
+                                                  'Color: ${variant.color},  Price: ${variant.price}, ${(variant.size != null) ? '  Size:' + variant.size.toString() : ''}'),
+                                              groupValue: model.variant,
+                                              onChanged: (VariantModel value) {
+                                                model.setVarient(value);
+                                                Navigator.pop(context);
+                                              },
+                                              value: variant,
+                                            ))
+                                        .toList()
+                                    // children: <Widget>[
+                                    //   RadioListTile(
+                                    //     title: Text('Music'),
+                                    //     groupValue: null,
+                                    //     onChanged: (Null value) {},
+                                    //     value: null,
+                                    //   ),
+                                    //   RadioListTile(
+                                    //     title: Text('Music'),
+                                    //     groupValue: null,
+                                    //     onChanged: (Null value) {},
+                                    //     value: null,
+                                    //   ),
+                                    // ],
+                                    ),
+                              );
+                            });
                       },
                       child: Container(
                         padding: EdgeInsets.all(8.0),
@@ -102,7 +137,7 @@ class ProductView extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            model.varient.price.toString(),
+                            model.variant.price.toString(),
                             style: GoogleFonts.nunito(
                               textStyle:
                                   Theme.of(context).textTheme.caption.copyWith(
@@ -114,7 +149,7 @@ class ProductView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    (model.varient.size != null)
+                    (model.variant.size != null)
                         ? Container(
                             child: Row(
                               children: <Widget>[
@@ -131,7 +166,7 @@ class ProductView extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  model.varient.size.toString(),
+                                  model.variant.size.toString(),
                                   style: GoogleFonts.nunito(
                                     textStyle: Theme.of(context)
                                         .textTheme
@@ -160,7 +195,7 @@ class ProductView extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Golden',
+                            model.variant.color,
                             style: GoogleFonts.nunito(
                               textStyle:
                                   Theme.of(context).textTheme.caption.copyWith(
@@ -182,4 +217,8 @@ class ProductView extends StatelessWidget {
       viewModelBuilder: () => ProductViewModel(),
     );
   }
+
+  // ShowModelDialog
+
+  void selectVarient(context) {}
 }
