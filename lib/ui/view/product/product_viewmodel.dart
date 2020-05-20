@@ -17,14 +17,12 @@ class ProductViewModel extends BaseViewModel {
   List<CategoryModel> get categories => _apiService.categories;
   List<VariantModel> get variants => _variants;
   int get productsLength => Hive.box('products').length;
+
   setProduct(ProductModel value) {
     _productModel = value;
-    _variantModel = Hive.box('variants').values.elementAt(0) as VariantModel;
-    // print('ProductId: ${value.id}');
-    getVarients(value.id);
-    // _variantModel = variants[0];
 
     notifyListeners();
+    getVarients(value.id);
   }
 
   setVarient(VariantModel variantModel) {
@@ -37,6 +35,7 @@ class ProductViewModel extends BaseViewModel {
     print('ProductId2: ${Hive.box('categories').values.length}');
 
     List<VariantModel> _variantModels = [...Hive.box('variants').values];
+
     if (_variants.length == 0) {
       _variantModels.forEach((variantModel) {
         if (variantModel.productId == id) {
@@ -44,7 +43,8 @@ class ProductViewModel extends BaseViewModel {
         }
       });
     }
-
+    _variantModel = _variants[0];
+    // notifyListeners();
     print('No of Variants - ${_variants.length}');
     notifyListeners();
   }
