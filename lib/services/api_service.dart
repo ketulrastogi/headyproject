@@ -49,8 +49,11 @@ class ApiService with ReactiveServiceMixin {
     final mostViewedBox = await Hive.openBox('mostViewed');
     final mostSharedBox = await Hive.openBox('mostShared');
     bool value = localDataBox.get(0) as bool;
+    if (value == null) {
+      value = false;
+    }
     print('LocalDataBoxValue : $value');
-    if (value == null && !value) {
+    if (!value) {
       await fetchData();
     }
   }
@@ -137,13 +140,25 @@ class ApiService with ReactiveServiceMixin {
       }
     });
 
-    categoriesBox.addAll(_categories.value);
-    productsBox.addAll(_products.value);
-    variantsBox.addAll(_variants.value);
-    print('Products Length: ${_products.value.length}');
-    mostOrderedBox.addAll(_mostOrderedProducts.value);
-    mostViewedBox.addAll(_mostViewedProducts.value);
-    mostSharedBox.addAll(_mostSharedProducts.value);
+    if (categoriesBox.values.length == 0) {
+      categoriesBox.addAll(_categories.value);
+    }
+    if (productsBox.values.length == 0) {
+      productsBox.addAll(_products.value);
+    }
+    if (variantsBox.values.length == 0) {
+      variantsBox.addAll(_variants.value);
+    }
+
+    if (mostOrderedBox.values.length == 0) {
+      mostOrderedBox.addAll(_mostOrderedProducts.value);
+    }
+    if (mostViewedBox.values.length == 0) {
+      mostViewedBox.addAll(_mostViewedProducts.value);
+    }
+    if (mostSharedBox.values.length == 0) {
+      mostSharedBox.addAll(_mostSharedProducts.value);
+    }
 
     localDataBox.add(true);
   }

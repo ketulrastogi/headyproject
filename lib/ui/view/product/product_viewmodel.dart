@@ -10,7 +10,7 @@ class ProductViewModel extends BaseViewModel {
   final ApiService _apiService = locator<ApiService>();
   ProductModel _productModel;
   VariantModel _variantModel;
-  List<VariantModel> _variants;
+  List<VariantModel> _variants = [];
 
   ProductModel get product => _productModel;
   VariantModel get variant => _variantModel;
@@ -19,10 +19,11 @@ class ProductViewModel extends BaseViewModel {
   int get productsLength => Hive.box('products').length;
   setProduct(ProductModel value) {
     _productModel = value;
-    _variantModel = Hive.box('variants').get(0) as VariantModel;
+    _variantModel = Hive.box('variants').values.elementAt(0) as VariantModel;
     // print('ProductId: ${value.id}');
     getVarients(value.id);
     // _variantModel = variants[0];
+
     notifyListeners();
   }
 
@@ -35,14 +36,16 @@ class ProductViewModel extends BaseViewModel {
   getVarients(int id) {
     print('ProductId2: ${Hive.box('categories').values.length}');
 
-    for (int i = 0; i < productsLength; i++) {
-      VariantModel variantModel = Hive.box('variants').get(i);
-      print(variantModel.color);
-      if (variantModel.productId == id) {
-        _variants.add(variantModel);
-      }
-      print('$i - ${_variants.length}');
-      notifyListeners();
+    List<VariantModel> _variantModels = [...Hive.box('variants').values];
+    if (_variants.length == 0) {
+      _variantModels.forEach((variantModel) {
+        if (variantModel.productId == id) {
+          _variants.add(variantModel);
+        }
+      });
     }
+
+    print('No of Variants - ${_variants.length}');
+    notifyListeners();
   }
 }
