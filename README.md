@@ -1,6 +1,6 @@
 # headyproject
 
-Interview test project - Heady.io
+Interview Sample project - Heady.io
 
 ## Getting Started
 
